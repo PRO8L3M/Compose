@@ -1,6 +1,7 @@
 package com.example.home.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,9 +33,7 @@ fun HomeScreen(
     onEvent: (Event) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .background(color = Color.Gray)
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         when (state) {
             is HomeState.NotApplicable -> Unit
@@ -70,7 +70,8 @@ private fun Content(
             is Value.Data -> {
                 LazyColumn(
                     modifier = Modifier.matchParentSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(16.dp),
                 ) {
                     items(state.jokes.data) { joke ->
                         JokeCard(
@@ -89,7 +90,10 @@ private fun JokeCard(
     modifier: Modifier = Modifier,
     joke: Joke,
 ) {
-    ElevatedCard(modifier = modifier) {
+    ElevatedCard(
+        modifier = modifier,
+        elevation = CardDefaults.elevatedCardElevation(4.dp)
+    ) {
         Text(
             text = joke.question,
             style = MaterialTheme.typography.headlineSmall,
